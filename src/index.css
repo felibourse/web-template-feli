@@ -1,19 +1,20 @@
 @import "tailwindcss";
 
 /* ============================================
-   VARIABLES GLOBALES — editar por proyecto
+   SELVA BAR — Identidad visual
    ============================================ */
-:root {
-  /* Colores — reemplazar según paleta del cliente */
-  --color-bg:      #0d0d0d;
-  --color-surface: #141414;
-  --color-border:  rgba(255, 255, 255, 0.08);
-  --color-text:    #f5f5f5;
-  --color-muted:   #737373;
-  --color-accent:  #ffffff;
+@theme {
+  --color-bg:          #060f07;
+  --color-surface:     #0a160b;
+  --color-surface-2:   #0e1e0f;
+  --color-verde:       #4a9e3f;
+  --color-verde-light: #5cb54f;
+  --color-verde-glow:  rgba(74, 158, 63, 0.15);
+  --color-cream:       #f0ead6;
+  --color-muted:       rgba(240, 234, 214, 0.45);
+  --color-border:      rgba(74, 158, 63, 0.12);
 
-  /* Tipografía — reemplazar según proyecto */
-  --font-heading: 'Inter', sans-serif;
+  --font-heading: 'Fraunces', serif;
   --font-body:    'Inter', sans-serif;
 }
 
@@ -26,13 +27,13 @@
 
 html {
   font-size: 16px;
-  scroll-behavior: auto; /* Lenis maneja el smooth scroll */
+  scroll-behavior: auto;
 }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-body);
+  background-color: #060f07;
+  color: #f0ead6;
+  font-family: 'Inter', sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -43,15 +44,25 @@ body {
   min-height: 100svh;
 }
 
-/* Scrollbar personalizado */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--color-bg); }
-::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+/* Scrollbar — teñida de verde */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #060f07; }
+::-webkit-scrollbar-thumb { background: rgba(74, 158, 63, 0.25); border-radius: 3px; }
 
-/* Reducir movimiento para accesibilidad */
+/* Marquee para reseñas */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 35s linear infinite;
+}
+
+/* Reducir movimiento */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+  .animate-marquee { animation: none; }
 }

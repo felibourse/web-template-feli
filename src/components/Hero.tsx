@@ -86,7 +86,7 @@ const Hero = ({ onReservar }: HeroProps) => {
       {/* Fondo */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/images/selva1.jpg"
+          src="/images/selva1.jfif"
           alt="Selva Bar"
           className="w-full h-full object-cover"
           onError={(e) => {

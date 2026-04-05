@@ -65,11 +65,23 @@ const MenuGrid = ({ category }: { category: MenuCategory }) => (
   </div>
 )
 
+// Fotos del ambiente del menú — no mezclar con selva1-6 del resto de la página
+const menuPhotos = [
+  '/images/selvamenu1.jpg',
+  '/images/selvamenu2.jpeg',
+  '/images/selvamenu3.jpeg',
+  '/images/selvamenu4.jpeg',
+  '/images/selvamenu5.jpeg',
+  '/images/selvamenu6.jpeg',
+]
+
 const Carta = () => {
-  const [seccion, setSeccion]         = useState<'comida' | 'bebidas'>('comida')
-  const [activeFood, setActiveFood]   = useState(foodMenu[0].id)
+  const [seccion, setSeccion]           = useState<'comida' | 'bebidas'>('comida')
+  const [activeFood, setActiveFood]     = useState(foodMenu[0].id)
   const [activeDrinks, setActiveDrinks] = useState(drinksMenu[0].id)
-  const sectionRef = useRef<HTMLDivElement>(null)
+  const sectionRef    = useRef<HTMLDivElement>(null)
+  const photoWrapRef  = useRef<HTMLDivElement>(null)
+  const photoStripRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -83,6 +95,27 @@ const Carta = () => {
           gsap.to('.carta-heading', { opacity: 1, scale: 1, y: 0, duration: 1.0, ease: 'power3.out' }),
       })
 
+      // Tira de fotos: slide horizontal scrub al scrollear
+      const wrap  = photoWrapRef.current
+      const strip = photoStripRef.current
+      if (wrap && strip) {
+        const getMaxX = () => -(strip.scrollWidth - wrap.offsetWidth)
+        gsap.fromTo(strip,
+          { x: 0 },
+          {
+            x: () => getMaxX(),
+            ease: 'none',
+            scrollTrigger: {
+              trigger: wrap,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1.8,
+              invalidateOnRefresh: true,
+            },
+          }
+        )
+      }
+
       // Strip de tabs: sube desde abajo
       gsap.set('.carta-tabs', { opacity: 0, y: 30 })
       ScrollTrigger.create({
@@ -92,6 +125,7 @@ const Carta = () => {
         onEnter: () =>
           gsap.to('.carta-tabs', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }),
       })
+
     }, sectionRef)
     return () => ctx.revert()
   }, [])
@@ -112,6 +146,17 @@ const Carta = () => {
           <h2 className="font-heading text-5xl md:text-6xl font-black text-cream tracking-tight leading-tight">
             Comida & Bebidas
           </h2>
+        </div>
+
+        {/* Tira de fotos con slide horizontal scrubbeado al scroll */}
+        <div ref={photoWrapRef} className="overflow-hidden mb-14 -mx-6 lg:-mx-10">
+          <div ref={photoStripRef} className="flex gap-3 w-max px-6 lg:px-10">
+            {menuPhotos.map((src, i) => (
+              <div key={i} className="w-64 h-44 md:w-80 md:h-56 flex-shrink-0 rounded-2xl overflow-hidden">
+                <img src={src} alt={`Selva Bar ambiente ${i + 1}`} className="w-full h-full object-cover" />
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Toggle Comida / Bebidas — pill */}

@@ -5,13 +5,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 const fotos = [
-  { src: '/images/selva1.jpg',  alt: 'Selva Bar — Interior' },
-  { src: '/images/selva2.jfif', alt: 'Selva Bar — Barra' },
-  { src: '/images/selva3.jpg',  alt: 'Selva Bar — Ambiente' },
+  { src: '/images/selva1.jfif', alt: 'Selva Bar — Interior' },
+  { src: '/images/selva2.jpg',  alt: 'Selva Bar — Barra' },
+  { src: '/images/selva3.jfif', alt: 'Selva Bar — Ambiente' },
   { src: '/images/selva4.jfif', alt: 'Selva Bar — Cócteles' },
-  { src: '/images/selva5.jfif', alt: 'Selva Bar — Exterior' },
-  { src: '/images/selva6.jpg',  alt: 'Selva Bar — Karaoke' },
-  { src: '/images/selva7.avif', alt: 'Selva Bar — Detalle' },
+  { src: '/images/selva5.jpg',  alt: 'Selva Bar — Exterior' },
+  { src: '/images/selva6.avif', alt: 'Selva Bar — Karaoke' },
 ]
 
 const ElLugar = () => {
